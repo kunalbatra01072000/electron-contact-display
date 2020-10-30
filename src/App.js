@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import "./App.css";
+import Navbar from "./components/Layout/Navbar";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import ContactState from "./Context/Contact/ContactState";
+import Home from "./components/Pages/Home";
+import About from "./components/Pages/About";
+import AlertState from "./Context/Alert/AlertState";
+import Alert from "./components/Layout/Alert";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AlertState>
+      <ContactState>
+        <Router>
+          <Fragment>
+            <Navbar />
+            <div className="container">
+              <Alert />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/about" component={About} />
+              </Switch>
+            </div>
+          </Fragment>
+        </Router>
+      </ContactState>
+    </AlertState>
   );
-}
+};
 
 export default App;
